@@ -28,7 +28,7 @@ def unzip_file(zip_path, extract_to):
         zip_ref.extractall(extract_to)
 
 def main():
-    base_dir = "Dataset/LIMUC"
+    base_dir = "/raid/D13K48009/texture/LIMUC"
     os.makedirs(base_dir, exist_ok=True)
     
     files_to_download = [
