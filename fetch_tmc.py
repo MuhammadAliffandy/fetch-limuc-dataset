@@ -1,6 +1,7 @@
 import os
 import subprocess
 import zipfile
+import sys
 
 def run_cmd(cmd):
     print(f"Running: {cmd}")
@@ -21,6 +22,9 @@ def unzip_file(zip_path, extract_to):
         print(f"ERROR: {zip_path} is not a valid zip file or is corrupted.")
 
 def main():
+    print("Installing/Upgrading gdown just in case...")
+    run_cmd(f"{sys.executable} -m pip install gdown")
+    
     base_dir = "/raid/D13K48009/texture/TMC"
     os.makedirs(base_dir, exist_ok=True)
     
@@ -29,8 +33,8 @@ def main():
     
     print(f"Downloading TMC dataset to {base_dir}...")
     
-    # Note: gdown needs to be installed in the environment where this runs
-    gdown_cmd = f"gdown --folder -O '{base_dir}' {folder_id}"
+    # Use python -m gdown instead of just gdown to ensure it finds the right executable
+    gdown_cmd = f"{sys.executable} -m gdown --folder -O '{base_dir}' {folder_id}"
     run_cmd(gdown_cmd)
     
     augment_zip = os.path.join(base_dir, "augment.zip")
